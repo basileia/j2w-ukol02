@@ -14,22 +14,21 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 @Controller
-public class MainController {
+public class QuoteController {
 
     @GetMapping("/")
     public ModelAndView showQuote() throws IOException {
-        ModelAndView quote = new ModelAndView("index");
-        quote.addObject("randomQuote", getRandomQuote("citaty.txt"));
-        return quote;
+        ModelAndView modelAndView = new ModelAndView("index");
+        modelAndView.addObject("randomQuote", getRandomQuote("citaty.txt"));
+        return modelAndView;
 
     }
 
     private static String getRandomQuote(String resource) throws IOException {
         List<String> quotes = getQuotes(resource);
-        Random rand = new Random();
-        return quotes.get(rand.nextInt(quotes.size()));
+        Random random = new Random();
+        return quotes.get(random.nextInt(quotes.size()));
     }
-
 
     private static List<String> getQuotes(String resource)throws IOException {
         ClassLoader classLoader=Thread.currentThread().getContextClassLoader();
@@ -42,12 +41,4 @@ public class MainController {
                 .collect(Collectors.toList());
         }
     }
-
-
-
-
-
-
-
-
 }
